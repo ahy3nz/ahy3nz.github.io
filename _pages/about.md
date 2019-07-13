@@ -8,6 +8,7 @@ redirect_from:
   - /about.html
 ---
 
+![Some of my research][bilayer]
 
 Who am I
 -------
@@ -18,6 +19,5 @@ Who am I
 
 You can reach me at any of the links on the sidebar
 
-![Some of my research][bilayer]
 
 [bilayer]: /images/bilayer.png
