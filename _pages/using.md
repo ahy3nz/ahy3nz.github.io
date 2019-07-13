@@ -4,7 +4,6 @@ title: "Re-using this theme"
 excerpt: "Re-using this theme"
 author_profile: true
 redirect_from: 
-  - /using/
   - /using.html
 ---
 
