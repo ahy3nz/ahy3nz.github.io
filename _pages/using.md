@@ -1,6 +1,7 @@
 ---
-permalink: /using/
+layout: archive
 title: "Re-using this theme"
+permalink: /using/
 excerpt: "Re-using this theme"
 author_profile: true
 ---
