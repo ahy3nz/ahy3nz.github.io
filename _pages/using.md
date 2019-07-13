@@ -3,8 +3,6 @@ permalink: /using/
 title: "Re-using this theme"
 excerpt: "Re-using this theme"
 author_profile: true
-redirect_from: 
-  - /using.html
 ---
 
 Thanks to the open-source community, a lot of the leg work for this site has already

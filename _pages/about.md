@@ -10,7 +10,7 @@ redirect_from:
 
 
 Who am I
-========
+-------
 * Computational scientist
 * Data science hobbyist
 * Molecular modeller
