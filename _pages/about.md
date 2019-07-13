@@ -20,4 +20,4 @@ You can reach me at any of the links on the sidebar
 
 ![Some of my research][bilayer]
 
-[bilayer]: /images/bilayer.tga
+[bilayer]: /images/bilayer.png
