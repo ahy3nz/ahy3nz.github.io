@@ -72,7 +72,7 @@ the small, growing code base vs. the large, archaic, software monolith
 I should mention that the landscape of government funding is acknowledging
 the need for sustainable software and helping develop centers
 that can organize and facilitate sustainable efforts, 
-like [URSSI](urssi.us), 
+like [URSSI](http://urssi.us), 
 [MolSSI](https://molssi.org/), 
 [Nanohub](https://nanohub.org/), among others
 
@@ -99,7 +99,7 @@ and infrastructure can be in place for the future.
 Harder: large software monoliths
 -------------------------------
 In my experience, this is where a good portion of academic software stands.
->10,000 lines of code with poor testing, organization, or modularity.
+\>10,000 lines of code with poor testing, organization, or modularity.
 
 One approach involves a *dedicated application support engineer* on hand 
 to refactor and maintain.
