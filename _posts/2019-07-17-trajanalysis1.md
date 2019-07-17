@@ -223,7 +223,9 @@ traj.xyz.shape
 
 
 
-1501 frames, 18546 atoms, 3 spatial coordinates.
+1501 frames, 18546 atoms, 3 spatial coordinates. In `numpy array` terms,
+the frames are the first dimension, atoms the second dimension, 
+and spatial coordinates the third.
 
 We can also snip out a frame to get all of the coordinates for all the atoms in that one frame
 
