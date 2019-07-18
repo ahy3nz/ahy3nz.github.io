@@ -18,11 +18,11 @@ Many meaningful properties can be derived from these coordinates, be it how atom
 Whatever it is you're interested in, it all starts with the coordinates
 
 There are many analysis packages:
-* [**MDTraj**] (http://mdtraj.org/1.9.3/)
-* [**MDAnalysis**] (https://www.mdanalysis.org/docs/)
-* [**Freud**] (https://freud.readthedocs.io/en/stable/)
-* [**Pytraj**] (https://amber-md.github.io/pytraj/latest/index.html)
-* [**Cpptraj**] (https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml)
+* [**MDTraj**](http://mdtraj.org/1.9.3/)
+* [**MDAnalysis**](https://www.mdanalysis.org/docs/)
+* [**Freud**](https://freud.readthedocs.io/en/stable/)
+* [**Pytraj**](https://amber-md.github.io/pytraj/latest/index.html)
+* [**Cpptraj**](https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml)
 * and many, many others (this is what happens when a open-source software goes rampant with different desired functionality and starts from independent research groups)
 
 While each has a variety of different built-in/common analysis routines, some are more common 
