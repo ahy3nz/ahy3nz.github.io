@@ -13,11 +13,13 @@ redirect_from:
 Who am I
 -------
 * Computational scientist
-* Data science hobbyist
+* Data scientist
 * Molecular modeller
 * Chemical engineer
 
 You can reach me at any of the links on the sidebar
+![Graphene image][graphene]
 
 
 [bilayer]: /images/bilayer.png
+[graphene]: /images/graphene.png
