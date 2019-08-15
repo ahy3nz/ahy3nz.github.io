@@ -905,13 +905,13 @@ sorted(summary_stats.items(), key=lambda v: v[1]['rank'])
 Harden, LeBron, and AD are a cut above the rest. Beal is not looking too hot
 
 # Room for improvement
-* Is building a distribution from year 2015-onward a good idea?
+* Is building a distribution from year 2015-onward a good idea? Weight more-recent years more favorably?
 * Pick better models to represent the distribution of a player's box stats?
 * How do we account for player development? Forecasting player stats, not just modeling
-* How do we account for roster/team changes?
+* How do we account for roster/team changes? Playstyle changes?
 * Can we account for hot streaks for a player?
 * Is there a more robust way to deal with player injury rather than hoping for 0/0/0 in the gamelogs?
-* Correlation between stats? If a player is on, they might end up playing better overall
+* Correlation between stats? If a player is "on", they might end up playing better overall
 * Can we try to time schedules? I.e. some NBA players will have 4-game weeks, can a corresponding fantasy player combine that information with the fantasy schedule and the fantasy opponent you face? 
 * Is there a need to draft a player in reaction to other fantasy player draftpicks? This may depend on how specific your team roles have to be. If team roles are lax, then choose the best fantasy option. If you need to fill out a roster, then you have to start weighing your roster choices vs what opponents may end up drafting
 
