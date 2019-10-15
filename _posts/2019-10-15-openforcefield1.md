@@ -426,9 +426,10 @@ Now we can run our simulation!
 smirnoff_simulation.step(1000)
 ```
 
-After it's finished, we can load the trajectory files into an `mdtraj.Trajectory` object, and visualize in a jupyter notebook with `nglview`. From this `mdtraj.Trajectory` object, you have pythonic-access to all the coordinates over time, and also access to various analysis libraries within `mdtraj`
+After it's finished, we can load the trajectory files into an `mdtraj.Trajectory` object, and visualize in a jupyter notebook with `nglview`. From this `mdtraj.Trajectory` object, you have pythonic-access to all the coordinates over time, and also access to various analysis libraries within `mdtraj`.
 
 The ethane is jumping around the boundaries of the periodic box, but you can see it wiggling. 
+Unfortunately, markdown doesn't show NGL widgets, so I advise people to look at the notebook.
 Not super interesting, but simulations from open-source software are doable. 
 If I had a more powerful computer, maybe I'd try a larger system, but I'll leave it to others to build off of my notebook (you can find this in my website's [git repo](https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks))
 
