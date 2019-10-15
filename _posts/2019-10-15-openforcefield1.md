@@ -1,3 +1,13 @@
+---
+title: 'Molecular Modelling Software: OpenForceField'
+date: 2019-10-15
+permalink: /posts/2019/10/openforcefield1/
+tags:
+  - molecularModelling
+  - scientificComputing
+  - gradSchool
+---
+
 # Putting together open-source molecular modelling software
 
 The open-source molecular modelling community is a small (but growing) trend within academics. 
@@ -431,7 +441,7 @@ After it's finished, we can load the trajectory files into an `mdtraj.Trajectory
 The ethane is jumping around the boundaries of the periodic box, but you can see it wiggling. 
 Unfortunately, markdown doesn't show NGL widgets, so I advise people to look at the notebook.
 Not super interesting, but simulations from open-source software are doable. 
-If I had a more powerful computer, maybe I'd try a larger system, but I'll leave it to others to build off of my notebook (you can find this in my website's [git repo](https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks))
+If I had a more powerful computer, maybe I'd try a larger system, but I'll leave it to others to build off my notebook (you can find this in my website's [git repo](https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks))
 
 
 ```python
