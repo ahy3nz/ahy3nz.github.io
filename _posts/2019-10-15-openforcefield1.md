@@ -352,6 +352,14 @@ The SMIRNOFF-system actually isn't electro-neutral, and that might be consequenc
 
 The sigmas are pretty similar between FF implementations. The hydrogen epsilsons in SMIRNOFF are about half of those in OPLS. The carbon epsilons in SMIRNOFF are almost double those in OPLS. This is kind of interesting, while SMIRNOFF-ethane has weaker electrostatics (weaker charges), the LJ might compensate with the greater carbon-epsilon.
 
+Another difference is that bonds containing hydrogens are constrained within
+SMIRNOFF, and this propagates out to creating our OpenMM system and enumerating
+bond pairs for the HarmonicBondForce, 
+which means the only energy that was computed for our ethane molecule 
+was the C-C bond. 
+If we removed the constraint, the 45 kcal/mol estimate would have gone up,
+further increasing the energetic difference between SMIRNOFF and OPLSAA
+
 
 ```python
 opls_omm_nonbond_force = opls_omm_system.getForce(3)
