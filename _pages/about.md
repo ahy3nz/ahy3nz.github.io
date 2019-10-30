@@ -14,7 +14,8 @@ Who am I
 -------
 * Computational scientist
 * Data scientist
-* Molecular modeller
+* Molecular modeler
+* Computational chemist
 * Chemical engineer
 
 You can reach me at any of the links on the sidebar
