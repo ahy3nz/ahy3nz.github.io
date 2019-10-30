@@ -1,27 +1,27 @@
 ---
-title: 'Molecular Modelling Software: OpenForceField'
+title: 'Molecular Modeling Software: OpenForceField'
 date: 2019-10-15
 permalink: /posts/2019/10/openforcefield1/
 tags:
-  - molecularModelling
+  - molecularmodeling
   - scientificComputing
   - gradSchool
 ---
 
-# Putting together open-source molecular modelling software
+# Putting together open-source molecular modeling software
 
-The open-source molecular modelling community is a small (but growing) trend within academics. 
+The open-source molecular modeling community is a small (but growing) trend within academics. 
 A lot of academics (professors, lab scientists, grad students) are putting together libraries and API that help fulfill a small task or purpose, and 21st century software engineering standards make them usable by others.
-Even in these early stages of open-source molecular modelling, these libraries are striving for interoperability, where two independently-developed API have gotten to the point where now they want to interact and communicate with each other.
+Even in these early stages of open-source molecular modeling, these libraries are striving for interoperability, where two independently-developed API have gotten to the point where now they want to interact and communicate with each other.
 
-This is a very interesting point in time, where molecular modellers are now tasked with the effort of making many different libraries and API work together to successfully run simulations and complete research projects. 
+This is a very interesting point in time, where molecular modelers are now tasked with the effort of making many different libraries and API work together to successfully run simulations and complete research projects. 
 Usually, scientists work within a singular software package that was designed by some core developers, and those scientists didn't need to venture outside that single software package, the license they paid for it, and the manual.
 
 With the release of [OpenForceField 1.0](https://openforcefield.org/news/introducing-openforcefield-1.0/), I was curious to use their SMRINOFF force field. 
 To my understanding (don't quote me on this), the idea behind SMIRNOFF is to simplify molecular mechanics force fields, cut down on redundant atom types/parameters, and parametrize molecules based on "chemical perception" (chemical context and local bonding environment). 
-Armed with these simplified, context-based force field methodologies, the frustrating, in-the-weeds obstacles associated with force field development might be ameliorated - the kinds of obstacles of which molecular modellers are painfully aware.
+Armed with these simplified, context-based force field methodologies, the frustrating, in-the-weeds obstacles associated with force field development might be ameliorated - the kinds of obstacles of which molecular modelers are painfully aware.
 
-Beyond the SMIRNOFF force field, I was curious how parameters might compare to the older OPLS all-atom force fields. As a personal challenge, I wanted to see how much "modern computational science" I could use, specifically trying to exercise the interoperability between different open-source molecular modelling packages.
+Beyond the SMIRNOFF force field, I was curious how parameters might compare to the older OPLS all-atom force fields. As a personal challenge, I wanted to see how much "modern computational science" I could use, specifically trying to exercise the interoperability between different open-source molecular modeling packages.
 
 ## Building the our molecular system and model
 We begin with some imports. We can already see a variety of packages being used: mBuild, Foyer, ParmEd, OpenForceField, Simtk, OpenMM, MDTraj, and NGLView. 
@@ -40,7 +40,7 @@ import foyer
 # ParmEd for interconverting data structures
 import parmed
 
-# Omnia suite of molecular modelling tools
+# Omnia suite of molecular modeling tools
 from openforcefield.topology import Topology, Molecule
 from openforcefield.typing.engines.smirnoff import ForceField
 from simtk import openmm, unit

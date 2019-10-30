@@ -1,10 +1,10 @@
 ---
-title: 'Analyzing Simulation Trajectories'
+title: 'Molecular Modeling Software: MDTraj'
 date: 2019-07-17
 permalink: /posts/2019/07/trajanalysis1/
 tags:
   - scientificComputing
-  - molecularModelling
+  - molecularmodeling
 ---
 
 # Some anecdotes with analyzing simulations
@@ -27,7 +27,7 @@ There are many analysis packages:
 
 While each has a variety of different built-in/common analysis routines, some are more common 
 (like radial distribution functions).
-What EVERY modeller will use, though, is the coordinates.
+What EVERY modeler will use, though, is the coordinates.
 The *most important* function in these analysis packages is the ability to turn 
 a large trajectory file, written to disk, and read it into memory as a data structure whose XYZ coordinates we can access. 
 
@@ -337,7 +337,7 @@ traj.unitcell_vectors.shape
 
 For each frame, there is a 3x3 array to describe the simulation box vectors
 
-I won't go into how you should analyze a trajectory, but every molecular modeller should be familiar with what analysis routines exist in which packages, and which analysis routines you should design yourself
+I won't go into how you should analyze a trajectory, but every molecular modeler should be familiar with what analysis routines exist in which packages, and which analysis routines you should design yourself
 
 ## Comments
 There is a whole zoo of trajectory file formats that simulation engines produce - each analysis package can accommodate a subset of those file formats, each analysis package has different built-in analysis routines. Sometimes it's a mix-and-match game where you need to use package A to read a trajectory, and convert to package B representation because it has some particular analysis routine you need.
