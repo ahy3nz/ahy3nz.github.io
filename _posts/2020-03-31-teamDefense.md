@@ -211,29 +211,29 @@ for column in df:
 # Worst NBA regular season offenses (by PPG)
 
 ## Mempis' Offense 18-19
-![MEMPHIS_offense.png](../files/2020-03-31-teamDefense_Files/MEMPHIS_offense.png)
+![MEMPHIS_offense.png](../images/2020-03-31-teamDefense_Files/MEMPHIS_offense.png)
 
 ## New York's Offense 18-19
-![NEW_YORK_offense.png](../files/2020-03-31-teamDefense_Files/NEW_YORK_offense.png)
+![NEW_YORK_offense.png](../images/2020-03-31-teamDefense_Files/NEW_YORK_offense.png)
 
 ## Cleveland's Offense 18-19
-![CLEVELAND_offense.png](../files/2020-03-31-teamDefense_Files/CLEVELAND_offense.png)
+![CLEVELAND_offense.png](../images/2020-03-31-teamDefense_Files/CLEVELAND_offense.png)
 
 # Best NBA regular season offenses (by PPG)
 We can see Milwaukee and New Orleans' offenses are very interior heavy, while Golden State has a relatively more balanced offense from all distances.
 
 ## Milwaukee's Offense 18-19
-![MILWAUKEE_offense.png](../files/2020-03-31-teamDefense_Files/MILWAUKEE_offense.png)
+![MILWAUKEE_offense.png](../images/2020-03-31-teamDefense_Files/MILWAUKEE_offense.png)
 
 ## Golden State's Offense 18-19
-![GOLDEN_STATE_offense.png](../files/2020-03-31-teamDefense_Files/GOLDEN_STATE_offense.png)
+![GOLDEN_STATE_offense.png](../images/2020-03-31-teamDefense_Files/GOLDEN_STATE_offense.png)
 
 ## New Orleans' Offense 18-19
-![NEW_ORLEANS_offense.png](../files/2020-03-31-teamDefense_Files/NEW_ORLEANS_offense.png)
+![NEW_ORLEANS_offense.png](../images/2020-03-31-teamDefense_Files/NEW_ORLEANS_offense.png)
 
 ## For a sanity check, Houston's Offense 18-19
 To make sure this method was "correct" we would expect Houston's offense to be low in mid-range shots
-![HOUSTON_offense.png](../files/2020-03-31-teamDefense_Files/HOUSTON_offense.png)
+![HOUSTON_offense.png](../images/2020-03-31-teamDefense_Files/HOUSTON_offense.png)
 
 
 
