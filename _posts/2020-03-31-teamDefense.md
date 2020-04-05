@@ -242,3 +242,6 @@ Histogramming shot distances into 1 dimension of distance definitely misses esse
 Along these lines, one could dissect this player-by-player, further simplifying to a player's shot chart.
 
 Alternatively, one could look at time left on the shot clock, shooter's distance from nearest defender, the style of play involved (off-ball screen, pick and roll, post-up, etc.)
+
+
+This notebook can be found [here](https://github.com/ahy3nz/BallDontLie/tree/master/ballDontLie/teamDefense)
