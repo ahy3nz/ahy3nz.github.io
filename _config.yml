@@ -84,10 +84,10 @@ author:
   avatar           : "profile.png"
   bio              : "Data Scientist, Computational Chemist"
   location         : "Washington, D.C."
-  employer         : "Data Scientist, Capital One."
+  employer         : "Data Scientist, Capital One"
       #pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
       #googlescholar    : "http://yourfullgooglescholarurl.com"
-  email            : alexander.h.yang@vanderbilt.edu
+  email            : ayang41@gmail.com
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
