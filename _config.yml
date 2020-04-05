@@ -82,9 +82,9 @@ analytics:
 author:
   name             : "Alex H. Yang"
   avatar           : "profile.png"
-  bio              : "Computational Chemist, Molecular Modeller"
-  location         : "Nashville, TN"
-  employer         : "Graduate student, Vanderbilt U."
+  bio              : "Data Scientist, Computational Chemist"
+  location         : "Washington, D.C."
+  employer         : "Data Scientist, Capital One."
       #pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
       #googlescholar    : "http://yourfullgooglescholarurl.com"
   email            : alexander.h.yang@vanderbilt.edu
