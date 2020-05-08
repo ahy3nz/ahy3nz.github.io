@@ -7,10 +7,9 @@ tags:
     - datascience
     - molecularmodeling
 ---
+# Learning cheminformatics from some Folding@Home data
 
-# Digging through some Folding@Home data
-
-2020-05-06 - Ongoing
+2020-05-06 - 2020-05-07
 
 I have no formal training in cheminformatics, so I am going to be stumbling and learning as I wade through this dataset.
 I welcome any learning lessons from experts.
@@ -18,6 +17,11 @@ I welcome any learning lessons from experts.
 This will be an ongoing foray
 
 Source: https://github.com/FoldingAtHome/covid-moonshot
+
+## Introduction
+Folding@Home is a distributed computing project - allowing molecular simulations to be run in parallel across thousands of different computers with minimal communication.
+This, combined with other molecular modeling methods, has yielded a lot of open data for others to examine.
+In particular, I'm interested in the docking screens and compounds targeted by the F@H and postera collaborations
 
 
 ```python
@@ -494,24 +498,24 @@ repurposing_df['docked_fragment'].value_counts()
     x0434      4
     x1093      3
     x1392      2
-    x0387      2
-    x1402      2
-    x1418      2
-    x0831      2
-    x0830      2
-    x1385      2
-    x0107      2
     x0395      2
-    x0967      1
-    x0786      1
-    x0426      1
+    x1402      2
+    x0831      2
+    x0107      2
+    x1385      2
+    x1418      2
+    x0387      2
+    x0830      2
     x1478      1
+    x0786      1
     x1187      1
     x0692      1
-    x1386      1
+    x0967      1
+    x0426      1
     x0305      1
-    x0759      1
     x0946      1
+    x1386      1
+    x0759      1
     Name: docked_fragment, dtype: int64
 
 
@@ -2095,7 +2099,7 @@ Here's a big Python function tangent.
 
 For each chembl molecule, we've searched for it within the chembl, returning us a list (of length 1) containing a dictionary of properties. 
 
-All moleucles have been compiled into a list, so we have a list of lists of dictioanries.
+All molecules have been compiled into a list, so we have a list of lists of dicionatires.
 
 For sanity, we can use a Python `filter` to only retain the non-None results.
 
@@ -2196,187 +2200,516 @@ next(filtered)
 
 
 
+For now, I'm only really interested in the `molecule_properties` dictionary
+
 
 ```python
-chembl_df = pd.DataFrame.from_dict(all_results)
+filtered = [a[0]['molecule_properties'] for a in all_results if len(a) > 0]
 ```
 
 
-    ---------------------------------------------------------------------------
+```python
+chembl_df = pd.DataFrame(filtered)
+chembl_df['TITLE'] = repurposing_df['TITLE']
+```
 
-    KeyboardInterrupt                         Traceback (most recent call last)
+## Molecular properties contained in the chembl database
 
-    <ipython-input-55-a860f01e5ff6> in <module>
-    ----> 1 chembl_df = pd.DataFrame.from_dict(all_results)
-    
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/pandas/core/frame.py in from_dict(cls, data, orient, dtype, columns)
-       1245             raise ValueError("only recognize index or columns for orient")
-       1246 
-    -> 1247         return cls(data, index=index, columns=columns, dtype=dtype)
-       1248 
-       1249     def to_numpy(self, dtype=None, copy=False) -> np.ndarray:
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/pandas/core/frame.py in __init__(self, data, index, columns, dtype, copy)
-        472                     if is_named_tuple(data[0]) and columns is None:
-        473                         columns = data[0]._fields
-    --> 474                     arrays, columns = to_arrays(data, columns, dtype=dtype)
-        475                     columns = ensure_index(columns)
-        476 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/pandas/core/internals/construction.py in to_arrays(data, columns, coerce_float, dtype)
-        482     else:
-        483         # last ditch effort
-    --> 484         data = [tuple(x) for x in data]
-        485         return _list_to_arrays(data, columns, coerce_float=coerce_float, dtype=dtype)
-        486 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/pandas/core/internals/construction.py in <listcomp>(.0)
-        482     else:
-        483         # last ditch effort
-    --> 484         data = [tuple(x) for x in data]
-        485         return _list_to_arrays(data, columns, coerce_float=coerce_float, dtype=dtype)
-        486 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/chembl_webresource_client/query_set.py in __len__(self)
-         95         if not self.can_filter:
-         96             return 1
-    ---> 97         return len(self.query)
-         98 
-         99 #-----------------------------------------------------------------------------------------------------------------------
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/chembl_webresource_client/url_query.py in __len__(self)
-        144             return
-        145         if not self.api_total_count:
-    --> 146             self.get_page()
-        147         return self.api_total_count
-        148 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/chembl_webresource_client/url_query.py in get_page(self)
-        386             data = self._prepare_url_params()
-        387             with self._get_session() as session:
-    --> 388                 res = session.post(self.base_url + '.' + self.frmt, json=data, timeout=self.timeout)
-        389             self.logger.info(res.url)
-        390             self.logger.info(data)
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests/sessions.py in post(self, url, data, json, **kwargs)
-        576         """
-        577 
-    --> 578         return self.request('POST', url, data=data, json=json, **kwargs)
-        579 
-        580     def put(self, url, data=None, **kwargs):
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests_cache/core.py in request(self, method, url, params, data, **kwargs)
-        134             _normalize_parameters(params),
-        135             _normalize_parameters(data),
-    --> 136             **kwargs
-        137         )
-        138         if self._is_cache_disabled:
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests/sessions.py in request(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)
-        528         }
-        529         send_kwargs.update(settings)
-    --> 530         resp = self.send(prep, **send_kwargs)
-        531 
-        532         return resp
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests_cache/core.py in send(self, request, **kwargs)
-        107 
-        108         if response is None:
-    --> 109             return send_request_and_cache_response()
-        110 
-        111         if self._cache_expire_after is not None:
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests_cache/core.py in send_request_and_cache_response()
-         95 
-         96         def send_request_and_cache_response():
-    ---> 97             response = super(CachedSession, self).send(request, **kwargs)
-         98             if response.status_code in self._cache_allowable_codes:
-         99                 self.cache.save_response(cache_key, response)
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests/sessions.py in send(self, request, **kwargs)
-        641 
-        642         # Send the request
-    --> 643         r = adapter.send(request, **kwargs)
-        644 
-        645         # Total elapsed time of the request (approximately)
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/requests/adapters.py in send(self, request, stream, timeout, verify, cert, proxies)
-        447                     decode_content=False,
-        448                     retries=self.max_retries,
-    --> 449                     timeout=timeout
-        450                 )
-        451 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/connectionpool.py in urlopen(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)
-        670                 body=body,
-        671                 headers=headers,
-    --> 672                 chunked=chunked,
-        673             )
-        674 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/connectionpool.py in _make_request(self, conn, method, url, timeout, chunked, **httplib_request_kw)
-        374         # Trigger any extra validation we need to do.
-        375         try:
-    --> 376             self._validate_conn(conn)
-        377         except (SocketTimeout, BaseSSLError) as e:
-        378             # Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/connectionpool.py in _validate_conn(self, conn)
-        992         # Force connect early to allow us to validate the connection.
-        993         if not getattr(conn, "sock", None):  # AppEngine might not have  `.sock`
-    --> 994             conn.connect()
-        995 
-        996         if not conn.is_verified:
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/connection.py in connect(self)
-        298     def connect(self):
-        299         # Add certificate verification
-    --> 300         conn = self._new_conn()
-        301         hostname = self.host
-        302 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/connection.py in _new_conn(self)
-        155         try:
-        156             conn = connection.create_connection(
-    --> 157                 (self._dns_host, self.port), self.timeout, **extra_kw
-        158             )
-        159 
-
-
-    ~/miniconda3/envs/jupyter38/lib/python3.7/site-packages/urllib3/util/connection.py in create_connection(address, timeout, source_address, socket_options)
-         72             if source_address:
-         73                 sock.bind(source_address)
-    ---> 74             sock.connect(sa)
-         75             return sock
-         76 
-
-
-    KeyboardInterrupt: 
+Here are the definitions I can dig up 
+* alogp: (lipophilicity) partition coefficient
+* aromatic_rings: number of aromatic rings
+* cx_logd: distribution coefficient taking into account ionized and non-ionized forms
+* cx_most_apka: acidic pka
+* cx_most_bpka: basic pka
+* full_mwt: molecular weight (and also free base and monoisotopic masses)
+* hba: hydrogen bond acceptors (and hba_lipinski for lipinski definitiosn)
+* hbd: hydrogen bond donors (and hbd_lipinski)
+* heavy_atoms: number of heavy atoms
+* num_lipinski_ro5_violations: how many times this molecule violated [Lipinski's rule of five](https://en.wikipedia.org/wiki/Lipinski%27s_rule_of_five)
+* num_ro5_violations: not sure, seems similar to lipinski rule of 5
+* psa: protein sequence alignment
+* qed_weighted: "quantitative estimate of druglikeness" (ranges between 0 and 1, with 1 being more favorable). This is based on a [quantitatve mean of drugability functions](https://www.nature.com/articles/nchem.1243)
+* ro3_pass: [rule of three](https://caz.lab.uic.edu/discovery/Medicinal-Chemistry-2018-Barcelona.pdf)
+* rtb: number of rotatable bonds
 
 
 
 ```python
 chembl_df.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>alogp</th>
+      <th>aromatic_rings</th>
+      <th>cx_logd</th>
+      <th>cx_logp</th>
+      <th>cx_most_apka</th>
+      <th>cx_most_bpka</th>
+      <th>full_molformula</th>
+      <th>full_mwt</th>
+      <th>hba</th>
+      <th>hba_lipinski</th>
+      <th>hbd</th>
+      <th>hbd_lipinski</th>
+      <th>heavy_atoms</th>
+      <th>molecular_species</th>
+      <th>mw_freebase</th>
+      <th>mw_monoisotopic</th>
+      <th>num_lipinski_ro5_violations</th>
+      <th>num_ro5_violations</th>
+      <th>psa</th>
+      <th>qed_weighted</th>
+      <th>ro3_pass</th>
+      <th>rtb</th>
+      <th>TITLE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.45</td>
+      <td>2.0</td>
+      <td>1.26</td>
+      <td>3.92</td>
+      <td>4.68</td>
+      <td>None</td>
+      <td>C16H14O2</td>
+      <td>238.29</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>18.0</td>
+      <td>ACID</td>
+      <td>238.29</td>
+      <td>238.0994</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>37.30</td>
+      <td>0.74</td>
+      <td>N</td>
+      <td>2.0</td>
+      <td>CHEMBL2104122</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.64</td>
+      <td>0.0</td>
+      <td>2.81</td>
+      <td>2.81</td>
+      <td>None</td>
+      <td>None</td>
+      <td>C20H26O2</td>
+      <td>298.43</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>22.0</td>
+      <td>None</td>
+      <td>298.43</td>
+      <td>298.1933</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>37.30</td>
+      <td>0.55</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>CHEMBL1387</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3.92</td>
+      <td>1.0</td>
+      <td>4.25</td>
+      <td>4.25</td>
+      <td>10.15</td>
+      <td>2.86</td>
+      <td>C18H24N2O2S</td>
+      <td>332.47</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>23.0</td>
+      <td>NEUTRAL</td>
+      <td>332.47</td>
+      <td>332.1558</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>75.68</td>
+      <td>0.76</td>
+      <td>N</td>
+      <td>1.0</td>
+      <td>CHEMBL275835</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.31</td>
+      <td>0.0</td>
+      <td>4.04</td>
+      <td>4.04</td>
+      <td>None</td>
+      <td>None</td>
+      <td>C20H28O</td>
+      <td>284.44</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>21.0</td>
+      <td>None</td>
+      <td>284.44</td>
+      <td>284.2140</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>20.23</td>
+      <td>0.52</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>CHEMBL2104104</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.79</td>
+      <td>0.0</td>
+      <td>3.96</td>
+      <td>3.96</td>
+      <td>None</td>
+      <td>None</td>
+      <td>C21H28O2</td>
+      <td>312.45</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>23.0</td>
+      <td>None</td>
+      <td>312.45</td>
+      <td>312.2089</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>34.14</td>
+      <td>0.70</td>
+      <td>N</td>
+      <td>1.0</td>
+      <td>CHEMBL2104231</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+chembl_df.columns
+```
+
+
+
+
+    Index(['alogp', 'aromatic_rings', 'cx_logd', 'cx_logp', 'cx_most_apka',
+           'cx_most_bpka', 'full_molformula', 'full_mwt', 'hba', 'hba_lipinski',
+           'hbd', 'hbd_lipinski', 'heavy_atoms', 'molecular_species',
+           'mw_freebase', 'mw_monoisotopic', 'num_lipinski_ro5_violations',
+           'num_ro5_violations', 'psa', 'qed_weighted', 'ro3_pass', 'rtb',
+           'TITLE'],
+          dtype='object')
+
+
+
+
+```python
+chembl_df.corr()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aromatic_rings</th>
+      <th>hba</th>
+      <th>hba_lipinski</th>
+      <th>hbd</th>
+      <th>hbd_lipinski</th>
+      <th>heavy_atoms</th>
+      <th>num_lipinski_ro5_violations</th>
+      <th>num_ro5_violations</th>
+      <th>rtb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>aromatic_rings</th>
+      <td>1.000000</td>
+      <td>0.192569</td>
+      <td>0.178507</td>
+      <td>0.014928</td>
+      <td>0.036106</td>
+      <td>0.249022</td>
+      <td>0.031094</td>
+      <td>0.031094</td>
+      <td>0.229124</td>
+    </tr>
+    <tr>
+      <th>hba</th>
+      <td>0.192569</td>
+      <td>1.000000</td>
+      <td>0.868859</td>
+      <td>0.084553</td>
+      <td>0.054409</td>
+      <td>0.451560</td>
+      <td>-0.047705</td>
+      <td>-0.047705</td>
+      <td>-0.023690</td>
+    </tr>
+    <tr>
+      <th>hba_lipinski</th>
+      <td>0.178507</td>
+      <td>0.868859</td>
+      <td>1.000000</td>
+      <td>0.348600</td>
+      <td>0.294276</td>
+      <td>0.295864</td>
+      <td>-0.070783</td>
+      <td>-0.070783</td>
+      <td>0.021812</td>
+    </tr>
+    <tr>
+      <th>hbd</th>
+      <td>0.014928</td>
+      <td>0.084553</td>
+      <td>0.348600</td>
+      <td>1.000000</td>
+      <td>0.935710</td>
+      <td>-0.172866</td>
+      <td>-0.060462</td>
+      <td>-0.060462</td>
+      <td>0.040505</td>
+    </tr>
+    <tr>
+      <th>hbd_lipinski</th>
+      <td>0.036106</td>
+      <td>0.054409</td>
+      <td>0.294276</td>
+      <td>0.935710</td>
+      <td>1.000000</td>
+      <td>-0.211899</td>
+      <td>-0.085660</td>
+      <td>-0.085660</td>
+      <td>0.084225</td>
+    </tr>
+    <tr>
+      <th>heavy_atoms</th>
+      <td>0.249022</td>
+      <td>0.451560</td>
+      <td>0.295864</td>
+      <td>-0.172866</td>
+      <td>-0.211899</td>
+      <td>1.000000</td>
+      <td>0.397240</td>
+      <td>0.397240</td>
+      <td>0.259011</td>
+    </tr>
+    <tr>
+      <th>num_lipinski_ro5_violations</th>
+      <td>0.031094</td>
+      <td>-0.047705</td>
+      <td>-0.070783</td>
+      <td>-0.060462</td>
+      <td>-0.085660</td>
+      <td>0.397240</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.345308</td>
+    </tr>
+    <tr>
+      <th>num_ro5_violations</th>
+      <td>0.031094</td>
+      <td>-0.047705</td>
+      <td>-0.070783</td>
+      <td>-0.060462</td>
+      <td>-0.085660</td>
+      <td>0.397240</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.345308</td>
+    </tr>
+    <tr>
+      <th>rtb</th>
+      <td>0.229124</td>
+      <td>-0.023690</td>
+      <td>0.021812</td>
+      <td>0.040505</td>
+      <td>0.084225</td>
+      <td>0.259011</td>
+      <td>0.345308</td>
+      <td>0.345308</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+At a glance, no definite linear correlations among this crowd besides pKas, partition coefficients, mwt/hba
+
+
+```python
+corr_df = chembl_df.corr()
+cols = chembl_df.columns
+
+fig, ax = plt.subplots(1,1, figsize=(8,6), dpi=100)
+
+ax.imshow(chembl_df.corr(), cmap='RdBu')
+
+ax.set_xticklabels(['']+cols)
+ax.tick_params(axis='x', rotation=90)
+
+ax.set_yticklabels(cols)
+
+for i, (rowname, row) in enumerate(corr_df.iterrows()):
+    for j, (key, val) in enumerate(row.iteritems()):
+        ax.annotate(f"{val:0.2f}", xy=(i,j), xytext=(-10, -5), textcoords="offset points")
+
+```
+
+
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_50_0.png)
+
+
+Maybe there are higher-order correlations and relationship more appropriate for clustering and decomposition
+
+
+```python
+cols = ['aromatic_rings', 'cx_logp',  'full_mwt', 'hba']
+cleaned = (chembl_df[~chembl_df[cols]
+                     .isnull()
+                     .all(axis='columns', skipna=False)][cols]
+           .astype('float')
+           .fillna(0, axis='columns'))
+```
+
+
+```python
+from sklearn import preprocessing
+
+normalized = preprocessing.scale(cleaned)
+```
+
+Appears to be maybe 4 clusters of these compounds examined by the covid-moonshot group
+
+
+```python
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+
+tsne_analysis = TSNE(n_components=2)
+output = tsne_analysis.fit_transform(normalized)
+fig,ax = plt.subplots(1,1)
+ax.scatter(output[:,0], output[:,1])
+ax.set_title("Aromatic rings, cx_logp, mwt, hba")
+```
+
+
+
+
+    Text(0.5, 1.0, 'Aromatic rings, cx_logp, mwt, hba')
+
+
+
+
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_55_1.png)
+
+
+By taking turns leaving out some features, it looks like leaving out aromatic rings or hydrogen bond acceptors will diminish the cluster distinction.
+
+Aromatic rings are huge and bulky components to small molecules, it makes sense that a chunk of the behavior corresponds to the aromatic rings.
+Similarly, hydrogen bond acceptors (heavy molecules) also induce van der Waals and electrostatics influences on small molecules.
+Left with only weight and partition coefficient, there's mainly a continous behavior
+
+
+
+```python
+def clean_df(cols):
+    cleaned = (chembl_df[~chembl_df[cols]
+                     .isnull()
+                     .all(axis='columns', skipna=False)][cols]
+           .astype('float')
+           .fillna(0, axis='columns'))
+
+    normalized = preprocessing.scale(cleaned)
+    
+    return normalized
+
+cols = ['cx_logp',  'full_mwt', 'hba']
+normalized = clean_df(cols)
+tsne_analysis = TSNE(n_components=2)
+output = tsne_analysis.fit_transform(normalized)
+fig,ax = plt.subplots(3,1, figsize=(8,8))
+ax[0].scatter(output[:,0], output[:,1])
+ax[0].set_title("cx_logp, mwt, hba")
+
+cols = ['cx_logp',  'full_mwt', 'aromatic_rings']
+normalized = clean_df(cols)
+
+tsne_analysis = TSNE(n_components=2)
+output = tsne_analysis.fit_transform(normalized)
+
+ax[1].scatter(output[:,0], output[:,1])
+ax[1].set_title("aromatic_rings, cx_logp, mwt")
+
+cols = ['cx_logp',  'full_mwt']
+normalized = clean_df(cols)
+
+ax[2].scatter(normalized[:,0], normalized[:,1])
+ax[2].set_title("cx_logp, mwt")
+
+fig.tight_layout()
+```
+
+
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_57_0.png)
+
 
 DrugBank
 
