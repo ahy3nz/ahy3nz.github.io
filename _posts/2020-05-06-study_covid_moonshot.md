@@ -10,7 +10,7 @@ tags:
 # Learning cheminformatics from some Folding@Home data
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
 
 Top 10 (based on Hybrid2 docking score) small molecules
 
@@ -370,7 +370,7 @@ for i, (rowname, row) in enumerate(moonshot_df[cols].corr().iterrows()):
 ```
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_4_0.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_4_0.png)
 
 
 ## Some docking results
@@ -2620,7 +2620,7 @@ for i, (rowname, row) in enumerate(corr_df.iterrows()):
 ```
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_50_0.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_50_0.png)
 
 
 Maybe there are higher-order correlations and relationship more appropriate for clustering and decomposition
@@ -2664,7 +2664,7 @@ ax.set_title("Aromatic rings, cx_logp, mwt, hba")
 
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_55_1.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_55_1.png)
 
 
 By taking turns leaving out some features, it looks like leaving out aromatic rings or hydrogen bond acceptors will diminish the cluster distinction.
@@ -2714,7 +2714,7 @@ fig.tight_layout()
 ```
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_57_0.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_57_0.png)
 
 
 DrugBank
@@ -3843,7 +3843,7 @@ ax.set_title(f"Docking to {site_type}")
 
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_68_1.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_68_1.png)
 
 
 
@@ -3873,7 +3873,7 @@ ax.set_title(f"Docking to {site_type}")
 
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_69_1.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_69_1.png)
 
 
 In general, lower docking score seem better, so the noncovalent sites might present more optimal binding locations (see histogram below).
@@ -3906,7 +3906,7 @@ ax.legend()
 
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_71_1.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_71_1.png)
 
 
 
@@ -3934,7 +3934,7 @@ img
 
 
 
-![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
+![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
 
 
 
