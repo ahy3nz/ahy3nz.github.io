@@ -9,7 +9,13 @@ tags:
 ---
 # Learning cheminformatics from some Folding@Home data
 
-2020-05-06 - 2020-05-07
+
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
+
+Top 10 (based on Hybrid2 docking score) small molecules
+
+
+2020-05-06 - 2020-05-11
 
 I have no formal training in cheminformatics, so I am going to be stumbling and learning as I wade through this dataset.
 I welcome any learning lessons from experts.
@@ -364,7 +370,7 @@ for i, (rowname, row) in enumerate(moonshot_df[cols].corr().iterrows()):
 ```
 
 
-![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_4_0.png)
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_4_0.png)
 
 
 ## Some docking results
@@ -2614,7 +2620,7 @@ for i, (rowname, row) in enumerate(corr_df.iterrows()):
 ```
 
 
-![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_50_0.png)
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_50_0.png)
 
 
 Maybe there are higher-order correlations and relationship more appropriate for clustering and decomposition
@@ -2658,7 +2664,7 @@ ax.set_title("Aromatic rings, cx_logp, mwt, hba")
 
 
 
-![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_55_1.png)
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_55_1.png)
 
 
 By taking turns leaving out some features, it looks like leaving out aromatic rings or hydrogen bond acceptors will diminish the cluster distinction.
@@ -2708,12 +2714,1229 @@ fig.tight_layout()
 ```
 
 
-![png](/images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_57_0.png)
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_57_0.png)
 
 
 DrugBank
 
-I found someone had already [downloaded the database](https://github.com/choderalab/nano-drugbank/blob/master/df_drugbank_smiles.csv)
+I found someone had already [downloaded the database](https://github.com/choderalab/nano-drugbank/blob/master/df_drugbank_smiles.csv).
+I may double-over these dataframes, but query the drugbank dataset rather than chembl
+
+## Some docking data
+
+We have some smiles strings, molecular properties, docking scores, and information about the docking fragments
+
+
+```python
+moonshot = pd.read_csv('moonshot-submissions/covid_submissions_all_info-docked-overlap.csv')
+```
+
+
+```python
+moonshot
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SMILES</th>
+      <th>TITLE</th>
+      <th>creator</th>
+      <th>fragments</th>
+      <th>link</th>
+      <th>real_space</th>
+      <th>SCR</th>
+      <th>BB</th>
+      <th>extended_real_space</th>
+      <th>in_molport_or_mcule</th>
+      <th>in_ultimate_mcule</th>
+      <th>in_emolecules</th>
+      <th>covalent_frag</th>
+      <th>covalent_warhead</th>
+      <th>acrylamide</th>
+      <th>acrylamide_adduct</th>
+      <th>chloroacetamide</th>
+      <th>chloroacetamide_adduct</th>
+      <th>vinylsulfonamide</th>
+      <th>vinylsulfonamide_adduct</th>
+      <th>nitrile</th>
+      <th>nitrile_adduct</th>
+      <th>MW</th>
+      <th>cLogP</th>
+      <th>HBD</th>
+      <th>HBA</th>
+      <th>TPSA</th>
+      <th>num_criterion_violations</th>
+      <th>BMS</th>
+      <th>Dundee</th>
+      <th>Glaxo</th>
+      <th>Inpharmatica</th>
+      <th>LINT</th>
+      <th>MLSMR</th>
+      <th>PAINS</th>
+      <th>SureChEMBL</th>
+      <th>PostEra</th>
+      <th>ORDERED</th>
+      <th>MADE</th>
+      <th>ASSAYED</th>
+      <th>Hybrid2</th>
+      <th>docked_fragment</th>
+      <th>Mpro-x1418_dock</th>
+      <th>site</th>
+      <th>number_of_overlapping_fragments</th>
+      <th>overlapping_fragments</th>
+      <th>overlap_score</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>c1ccc(cc1)n2c3cc(c(cc3c(=O)c(c2[O-])c4cccnc4)F)Cl</td>
+      <td>MAK-UNK-9e4a73aa-2</td>
+      <td>Maksym Voznyy</td>
+      <td>x1418</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>366.779</td>
+      <td>4.51890</td>
+      <td>0</td>
+      <td>3</td>
+      <td>50.27</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>beta-keto/anhydride</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Ketone, Dye 11</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-11.881256</td>
+      <td>x1418</td>
+      <td>1.206534</td>
+      <td>active-covalent</td>
+      <td>3</td>
+      <td>x0434,x0678,x0830</td>
+      <td>3.208124</td>
+      <td>271.986084</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cc1ccncc1n2c(=O)ccc3c2CCCN3CC(=[NH2+])N</td>
+      <td>KIM-UNI-60f168f5-7</td>
+      <td>Kim Tai Tran, University of Copenhagen</td>
+      <td>x0107,x0991</td>
+      <td>https://covid.postera.ai/covid/submissions/KIM...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>297.362</td>
+      <td>1.22949</td>
+      <td>2</td>
+      <td>5</td>
+      <td>88.00</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>imine, imine</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>acyclic C=N-H</td>
+      <td>Imine 3</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-11.654112</td>
+      <td>x0107</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0107,x1412,x1392</td>
+      <td>4.753475</td>
+      <td>232.815506</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c1ccc(cc1)n2c3cc(c(cc3c(=O)n(c2=O)c4cnccn4)F)Cl</td>
+      <td>MAK-UNK-9e4a73aa-14</td>
+      <td>Maksym Voznyy</td>
+      <td>x1418</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>368.755</td>
+      <td>2.72410</td>
+      <td>0</td>
+      <td>6</td>
+      <td>69.78</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-10.460650</td>
+      <td>x0678</td>
+      <td>2.716276</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0678,x1412,x1392</td>
+      <td>5.520980</td>
+      <td>266.688721</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cc1ccncc1N(C=C)[C@H]([C@@H](C)[C@@H]2CN=Cc3c2c...</td>
+      <td>AUS-WAB-916db9c0-1</td>
+      <td>Austin D. Chivington, Wabash College</td>
+      <td>x0107,x1077,x1374</td>
+      <td>https://covid.postera.ai/covid/submissions/AUS...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>351.450</td>
+      <td>3.51932</td>
+      <td>1</td>
+      <td>5</td>
+      <td>57.95</td>
+      <td>0</td>
+      <td>non_ring_acetal</td>
+      <td>het-C-het not in ring</td>
+      <td>PASS</td>
+      <td>Filter10_Terminal_vinyl</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-9.516450</td>
+      <td>x0678</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0434,x0831,x0678</td>
+      <td>3.446572</td>
+      <td>284.195312</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>c1ccc2c(c1)ncc(n2)/C=C/C(=O)c3cccc(c3)O</td>
+      <td>DRV-DNY-ae159ed1-12</td>
+      <td>Dr. Vidya Desai, Dnyanprassarak Mandals Colleg...</td>
+      <td>x1249</td>
+      <td>https://covid.postera.ai/covid/submissions/DRV...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>276.295</td>
+      <td>3.23150</td>
+      <td>1</td>
+      <td>4</td>
+      <td>63.08</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Filter44_michael_acceptor2</td>
+      <td>PASS</td>
+      <td>Ketone, Dye 9, vinyl michael acceptor1</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-9.243208</td>
+      <td>x0678</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0434,x0678,x0830</td>
+      <td>2.865147</td>
+      <td>220.275421</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4630</th>
+      <td>C[C@H]([C@@H](C(=O)N[C@H](Cc1ccccc1)C(=O)N[C@@...</td>
+      <td>PAU-UNI-6d15a9f5-4</td>
+      <td>paul brear, University of cambridge</td>
+      <td>x1086</td>
+      <td>https://covid.postera.ai/covid/submissions/PAU...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>714.821</td>
+      <td>-0.91270</td>
+      <td>8</td>
+      <td>11</td>
+      <td>256.10</td>
+      <td>4</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Long aliphatic chain, Dipeptide</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>3.175111</td>
+      <td>x0305</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>5.297134</td>
+      <td>548.583191</td>
+    </tr>
+    <tr>
+      <th>4631</th>
+      <td>c1cc2cc(c(cc2c(c1)S(=O)(=O)N3CC[NH+](CC3)Cc4cc...</td>
+      <td>MAK-UNK-e05327b2-2</td>
+      <td>Maksym Voznyy</td>
+      <td>x1402</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>837.964</td>
+      <td>6.63190</td>
+      <td>0</td>
+      <td>9</td>
+      <td>98.31</td>
+      <td>2</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Hetero_hetero</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>3.561681</td>
+      <td>x1392</td>
+      <td>NaN</td>
+      <td>active-covalent</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>3.297014</td>
+      <td>591.877563</td>
+    </tr>
+    <tr>
+      <th>4632</th>
+      <td>Cc1cccc(c1)C[NH+]2CCN(CC2)C(=O)c3ccc(cc3)C#Cc4...</td>
+      <td>MAK-UNK-e4a48a85-16</td>
+      <td>Maksym Voznyy</td>
+      <td>x0387,x0692</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>574.794</td>
+      <td>6.18892</td>
+      <td>0</td>
+      <td>5</td>
+      <td>39.68</td>
+      <td>2</td>
+      <td>PASS</td>
+      <td>triple bond</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>4.056698</td>
+      <td>x0978</td>
+      <td>NaN</td>
+      <td>active-covalent</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>4.360606</td>
+      <td>470.944824</td>
+    </tr>
+    <tr>
+      <th>4633</th>
+      <td>c1cc2cc(c(cc2c(c1)S(=O)(=O)N3CC[NH+](CC3)Cc4cc...</td>
+      <td>MAK-UNK-e05327b2-6</td>
+      <td>Maksym Voznyy</td>
+      <td>x1402</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>990.183</td>
+      <td>5.19160</td>
+      <td>0</td>
+      <td>12</td>
+      <td>138.93</td>
+      <td>3</td>
+      <td>alpha_halo_heteroatom, secondary_halide_sulfate</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Hetero_hetero</td>
+      <td>PASS</td>
+      <td>Dithiomethylene_acetal</td>
+      <td>Alkyl Halide</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>4.242827</td>
+      <td>x0731</td>
+      <td>NaN</td>
+      <td>active-covalent</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>4.193186</td>
+      <td>694.333069</td>
+    </tr>
+    <tr>
+      <th>4634</th>
+      <td>Cc1cccc(c1)C[NH+]2CCN(CC2)c3cc(c(c(c3)Cl)c4cc5...</td>
+      <td>MAK-UNK-e4a48a85-15</td>
+      <td>Maksym Voznyy</td>
+      <td>x0387,x0692</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>659.687</td>
+      <td>7.36362</td>
+      <td>1</td>
+      <td>7</td>
+      <td>68.36</td>
+      <td>2</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>5.966927</td>
+      <td>x0705</td>
+      <td>NaN</td>
+      <td>active-covalent</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1.473711</td>
+      <td>503.583801</td>
+    </tr>
+  </tbody>
+</table>
+<p>4635 rows × 48 columns</p>
+</div>
+
+
+
+
+```python
+moonshot.head(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SMILES</th>
+      <th>TITLE</th>
+      <th>creator</th>
+      <th>fragments</th>
+      <th>link</th>
+      <th>real_space</th>
+      <th>SCR</th>
+      <th>BB</th>
+      <th>extended_real_space</th>
+      <th>in_molport_or_mcule</th>
+      <th>in_ultimate_mcule</th>
+      <th>in_emolecules</th>
+      <th>covalent_frag</th>
+      <th>covalent_warhead</th>
+      <th>acrylamide</th>
+      <th>acrylamide_adduct</th>
+      <th>chloroacetamide</th>
+      <th>chloroacetamide_adduct</th>
+      <th>vinylsulfonamide</th>
+      <th>vinylsulfonamide_adduct</th>
+      <th>nitrile</th>
+      <th>nitrile_adduct</th>
+      <th>MW</th>
+      <th>cLogP</th>
+      <th>HBD</th>
+      <th>HBA</th>
+      <th>TPSA</th>
+      <th>num_criterion_violations</th>
+      <th>BMS</th>
+      <th>Dundee</th>
+      <th>Glaxo</th>
+      <th>Inpharmatica</th>
+      <th>LINT</th>
+      <th>MLSMR</th>
+      <th>PAINS</th>
+      <th>SureChEMBL</th>
+      <th>PostEra</th>
+      <th>ORDERED</th>
+      <th>MADE</th>
+      <th>ASSAYED</th>
+      <th>Hybrid2</th>
+      <th>docked_fragment</th>
+      <th>Mpro-x1418_dock</th>
+      <th>site</th>
+      <th>number_of_overlapping_fragments</th>
+      <th>overlapping_fragments</th>
+      <th>overlap_score</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>c1ccc(cc1)n2c3cc(c(cc3c(=O)c(c2[O-])c4cccnc4)F)Cl</td>
+      <td>MAK-UNK-9e4a73aa-2</td>
+      <td>Maksym Voznyy</td>
+      <td>x1418</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>366.779</td>
+      <td>4.51890</td>
+      <td>0</td>
+      <td>3</td>
+      <td>50.27</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>beta-keto/anhydride</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Ketone, Dye 11</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-11.881256</td>
+      <td>x1418</td>
+      <td>1.206534</td>
+      <td>active-covalent</td>
+      <td>3</td>
+      <td>x0434,x0678,x0830</td>
+      <td>3.208124</td>
+      <td>271.986084</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cc1ccncc1n2c(=O)ccc3c2CCCN3CC(=[NH2+])N</td>
+      <td>KIM-UNI-60f168f5-7</td>
+      <td>Kim Tai Tran, University of Copenhagen</td>
+      <td>x0107,x0991</td>
+      <td>https://covid.postera.ai/covid/submissions/KIM...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>297.362</td>
+      <td>1.22949</td>
+      <td>2</td>
+      <td>5</td>
+      <td>88.00</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>imine, imine</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>acyclic C=N-H</td>
+      <td>Imine 3</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-11.654112</td>
+      <td>x0107</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0107,x1412,x1392</td>
+      <td>4.753475</td>
+      <td>232.815506</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c1ccc(cc1)n2c3cc(c(cc3c(=O)n(c2=O)c4cnccn4)F)Cl</td>
+      <td>MAK-UNK-9e4a73aa-14</td>
+      <td>Maksym Voznyy</td>
+      <td>x1418</td>
+      <td>https://covid.postera.ai/covid/submissions/MAK...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>368.755</td>
+      <td>2.72410</td>
+      <td>0</td>
+      <td>6</td>
+      <td>69.78</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-10.460650</td>
+      <td>x0678</td>
+      <td>2.716276</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0678,x1412,x1392</td>
+      <td>5.520980</td>
+      <td>266.688721</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cc1ccncc1N(C=C)[C@H]([C@@H](C)[C@@H]2CN=Cc3c2c...</td>
+      <td>AUS-WAB-916db9c0-1</td>
+      <td>Austin D. Chivington, Wabash College</td>
+      <td>x0107,x1077,x1374</td>
+      <td>https://covid.postera.ai/covid/submissions/AUS...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>351.450</td>
+      <td>3.51932</td>
+      <td>1</td>
+      <td>5</td>
+      <td>57.95</td>
+      <td>0</td>
+      <td>non_ring_acetal</td>
+      <td>het-C-het not in ring</td>
+      <td>PASS</td>
+      <td>Filter10_Terminal_vinyl</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-9.516450</td>
+      <td>x0678</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0434,x0831,x0678</td>
+      <td>3.446572</td>
+      <td>284.195312</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>c1ccc2c(c1)ncc(n2)/C=C/C(=O)c3cccc(c3)O</td>
+      <td>DRV-DNY-ae159ed1-12</td>
+      <td>Dr. Vidya Desai, Dnyanprassarak Mandals Colleg...</td>
+      <td>x1249</td>
+      <td>https://covid.postera.ai/covid/submissions/DRV...</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>FALSE</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>276.295</td>
+      <td>3.23150</td>
+      <td>1</td>
+      <td>4</td>
+      <td>63.08</td>
+      <td>0</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>Filter44_michael_acceptor2</td>
+      <td>PASS</td>
+      <td>Ketone, Dye 9, vinyl michael acceptor1</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>PASS</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>-9.243208</td>
+      <td>x0678</td>
+      <td>NaN</td>
+      <td>active-noncovalent</td>
+      <td>3</td>
+      <td>x0434,x0678,x0830</td>
+      <td>2.865147</td>
+      <td>220.275421</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+moonshot['Mpro-x1418_dock'].isnull().sum() # Lots of missing Mpro dock scores
+```
+
+
+
+
+    4586
+
+
+
+While there are a lot of different fragments to which the small molecule can bind, there are two "classes", active-covalent and active-noncovalent (possibly referring to sites that covalently bond?)
+
+This presents a way to logically bisect the data based on some fundamental chemistry of the binding pocket.
+
+
+```python
+moonshot['docked_fragment'].value_counts()
+```
+
+
+
+
+    x0678    940
+    x0749    771
+    x0104    347
+    x0831    283
+    x0830    281
+    x0195    269
+    x0161    252
+    x0107    201
+    x0072    172
+    x1077    127
+    x1392    107
+    x1093    107
+    x0434    105
+    x0874     81
+    x1385     69
+    x1418     58
+    x1334     50
+    x0967     46
+    x0397     42
+    x0946     38
+    x0692     37
+    x0759     37
+    x1386     35
+    x0395     29
+    x0305     24
+    x1311     16
+    x0708     13
+    x0774     12
+    x1380     10
+    x1412      7
+    x1374      7
+    x1348      6
+    x0770      5
+    x1249      5
+    x0387      5
+    x0736      4
+    x0705      4
+    x1358      3
+    x0426      3
+    x1375      3
+    x0734      3
+    x0540      3
+    x0354      3
+    x1382      3
+    x0755      1
+    x1458      1
+    x0689      1
+    x0769      1
+    x0981      1
+    x0978      1
+    x0731      1
+    x1493      1
+    x0771      1
+    x1478      1
+    x1384      1
+    x1351      1
+    Name: docked_fragment, dtype: int64
+
+
+
+
+```python
+moonshot['site'].value_counts()
+```
+
+
+
+
+    active-noncovalent    2799
+    active-covalent       1836
+    Name: site, dtype: int64
+
+
+
+We can examine the same correlations, but now for each type of site, and look at the hybrid docking score correlations.
+
+The biggest trend differences appear with the partition coefficient and number of hydrogen bond donors, but still the correlations are extremely weak
+
+
+```python
+site_type = 'active-noncovalent'
+fig, ax = plt.subplots(1,1, figsize=(8,6), dpi=100)
+cols = ['MW', 'cLogP', 'HBD', 'HBA', 'TPSA', 'Hybrid2']
+ax.matshow(moonshot[moonshot['site']==site_type][cols].corr(), cmap='RdBu')
+
+ax.set_xticks([i for i,_ in enumerate(cols)])
+ax.set_xticklabels(cols)
+
+ax.set_yticks([i for i,_ in enumerate(cols)])
+ax.set_yticklabels(cols)
+
+for i, (rowname, row) in enumerate(moonshot[moonshot['site']==site_type][cols].corr().iterrows()):
+    for j, (key, val) in enumerate(row.iteritems()):
+        ax.annotate(f"{val:0.2f}", xy=(i,j), xytext=(-10, -5), textcoords="offset points")
+ax.set_title(f"Docking to {site_type}")
+```
+
+
+
+
+    Text(0.5, 1.05, 'Docking to active-noncovalent')
+
+
+
+
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_68_1.png)
+
+
+
+```python
+site_type = 'active-covalent'
+fig, ax = plt.subplots(1,1, figsize=(8,6), dpi=100)
+cols = ['MW', 'cLogP', 'HBD', 'HBA', 'TPSA', 'Hybrid2']
+ax.matshow(moonshot[moonshot['site']==site_type][cols].corr(), cmap='RdBu')
+
+ax.set_xticks([i for i,_ in enumerate(cols)])
+ax.set_xticklabels(cols)
+
+ax.set_yticks([i for i,_ in enumerate(cols)])
+ax.set_yticklabels(cols)
+
+for i, (rowname, row) in enumerate(moonshot[moonshot['site']==site_type][cols].corr().iterrows()):
+    for j, (key, val) in enumerate(row.iteritems()):
+        ax.annotate(f"{val:0.2f}", xy=(i,j), xytext=(-10, -5), textcoords="offset points")
+ax.set_title(f"Docking to {site_type}")
+```
+
+
+
+
+    Text(0.5, 1.05, 'Docking to active-covalent')
+
+
+
+
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_69_1.png)
+
+
+In general, lower docking score seem better, so the noncovalent sites might present more optimal binding locations (see histogram below).
+This seems non-intuitive because, if active-covalent really means sites that bond covalently, then covalent bonds would seem more energetically favorable than non-covalent interactions.
+Alternatively, forming covalent bonds might suggest an unstable region of the complex that could be shielded from the surroundings, inhibiting any sort of small molecule from binding the pocket?
+Expert opinion would be much appreciated here
+
+
+```python
+
+fig, ax = plt.subplots(1,1, figsize=(8,6), dpi=100)
+covalent_mean = moonshot[moonshot['site']=='active-covalent']['Hybrid2'].mean()
+noncovalent_mean = moonshot[moonshot['site']=='active-noncovalent']['Hybrid2'].mean()
+
+ax.hist(moonshot[moonshot['site']=='active-covalent']['Hybrid2'], alpha=0.5, 
+        label=f'active-covalent (mean={covalent_mean:.3f})')
+ax.hist(moonshot[moonshot['site']=='active-noncovalent']['Hybrid2'], alpha=0.5, 
+        label=f'active-noncovalent (mean={noncovalent_mean:.3f})')
+
+ax.set_title(f"Hybrid2 histogram")
+ax.set_xlabel("Hybrid2 score")
+ax.legend()
+```
+
+
+
+
+    <matplotlib.legend.Legend at 0x7fac6b459850>
+
+
+
+
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_71_1.png)
+
+
+
+```python
+from rdkit import Chem
+```
+
+
+```python
+rdkit_smiles = [Chem.MolFromSmiles(a) for a in moonshot.sort_values('Hybrid2', ascending=True)['SMILES'].head(10)]
+scores = [f"{a:.3f}" for a in moonshot.sort_values('Hybrid2', ascending=True)['Hybrid2'].head(10)]
+```
+
+
+```python
+img=Chem.Draw.MolsToGridImage(rdkit_smiles,molsPerRow=5,subImgSize=(200,200),
+                             legends=scores)
+```
+
+
+```python
+img
+```
+
+
+
+
+![png](images/2020-05-06-study_covid_moonshot_files/2020-05-06-study_covid_moonshot_75_0.png)
+
+
 
 
 ```python
