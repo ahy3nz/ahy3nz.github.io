@@ -1715,3 +1715,6 @@ Breaking up a large chemical system into smaller substructures didn't seem to he
 
 In all honesty since most molecular systems usually have less than a dozen different molecular species, just replicated into thousands of molecules, the best bet is to parametrize each molecular species once, then propagate the parameters appropriately, all in the canonical foyer style without any parallelization.
 The current foyer implementation already has implicit acceleration with caching and networkx may already have some graph optimizations for subgraph isomorphisms, mitigating any need for us to explicitly decompose one big graph into lots of small connected components
+
+Notebooks can be found [in this repo](https://github.com/ahy3nz/ahy3nz.github.io/tree/master/files/notebooks)
+
