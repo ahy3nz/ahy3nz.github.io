@@ -371,6 +371,11 @@ ax.set_ylabel("Force (Hartree / $\AA$)")
 ![png](/images/2020-08-15-torchanimd_files/2020-08-15-torchanimd_33_1.png)
 
 
+## Combinng torchani with some other molecular modeling libraries
+
+We're going to use mbuild to initialize some particles, mdtraj as a convenient library to hold molecular information, and torchani to calculate some energies. 
+As with the 2-atom potential example, this pentane example is a little fishy, but this code snippet should hopefully serve as a nice framework to combine some open source molecular modeling libraries.
+
 
 ```python
 from mbuild.lib.recipes import Alkane
