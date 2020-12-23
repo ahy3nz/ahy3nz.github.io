@@ -49,8 +49,19 @@ Poetry also has some convenient functions for compiling source distributions and
 
 ## What about docker?
 Docker provides a lot of virtualization and environment control so you can put together an entire tech stack just for your application to run on a bare-bones, nothing-installed server somewhere.
+This comes in the form of a dockerfile, which like a set of instructions on how to build your container.
 For an early career data scientist, that's probably all you need to know.
 Software engineers deal with this all the time, and data scientists eventually dip their toes here as a model/project comes to maturity.
+
+You can learn a lot about dockerfiles by reading them and writing your own, so take a look at the repo linked at the beginning of this post.
+In general, it kind of resembles a lot of shell commands.
+Getting conda to work with docker comes with some sticking points:
+
+- `conda` commands within each layer won't work unless you run the shell script that comes with conda, so you have to remember to run that script throughout the dockerfile
+- Note the use of the `entrypoint.sh` file, which becomes the final script that is executed when you call `docker run`. Observe the necessary `chmod` to make it executable, and note the `conda.sh` command even inside the `entrypoint.sh` file if you want the container to run some code within a conda environment.
+- `docker run -it poetry /bin/bash` if you want to open an interactive shell session to the container, running commands/codes inside the docker container like you would an SSH session.
+- Technically, since you have absolute control over the image, you might not need the virtual environment for small python packages. As the packages get more complex and package builds become more complicated, it becomes easier to let conda handle the package management rather than try to correctly install everything in a dockerfile
+
 
 If you envision running lots of python code or calculations on cloud servers, docker containers and python environments are the sorts of tech that make it happen (and if you and your proejct are up for it, container-orchestration and workflow tools) 
 
