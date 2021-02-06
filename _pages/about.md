@@ -11,23 +11,18 @@ redirect_from:
 ![Some of my research][bilayer]
 
 
-About me
+About me and this blog
 -------
-I'm Alex, I graduated with a PhD in chemical engineering in 2020 and have been a data scientist with Capital One since January 2020. 
-
-I wear many hats - 
-
-* Data scientist
-* Molecular modeler
-* Computational chemist
-* Chemical engineer
-
-
-About this blog
---------
+I'm Alex, a data scientist/molecular modeler/computational chemist/chemical engineer.
 I like to combine open-source software and open-source data.
 This isn't my 9-5 job, so don't expect any groundbreaking results, but something interesting may catch your eye.
 While I'm open to being wrong, I'm also open to discussion from visitors!
+
+
+A quick rundown:
+- (2016-2020) PhD in chemical engineering 
+- (2020-2021) Data scientist at Capital One
+- (2021-present) Data scientst at Merck
 
 
 You can reach me at any of the links on the sidebar
