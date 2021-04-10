@@ -22,7 +22,7 @@ While I'm open to being wrong, I'm also open to discussion from visitors!
 A quick rundown:
 - (2016-2020) PhD in chemical engineering 
 - (2020-2021) Data scientist at Capital One
-- (2021-present) Data scientst at Merck
+- (2021-present) Data scientist at Merck
 
 
 You can reach me at any of the links on the sidebar
