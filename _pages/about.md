@@ -4,6 +4,7 @@ title: "Alex Yang's personal website"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
+  - /fastpayges/about/
   - /about/
   - /about.html
 ---
